@@ -32,6 +32,7 @@ export default function Index() {
         1: 0,
         2: 0,
         3: 0,
+        4: 0,
     };
     const [counter, setCounter] = useState(count);
     const increment = (id: number) => {
@@ -41,7 +42,7 @@ export default function Index() {
 
     function countAdd(id: number) {
         // @ts-ignore
-        if (counter[id] > 32) {
+        if (counter[id] > 99) {
             setCounter({...counter, [id]: 1})
             return true;
         }
@@ -82,26 +83,54 @@ export default function Index() {
                                     <div className={"row text-center"}>
                                         <div className="col-md-4">
                                             <h3>Subhanallah</h3>
+                                            <button type="button"
+                                                    className="btn btn-success">&nbsp;{counter[1]}&nbsp;</button>
+                                            &nbsp;
                                             <button onClick={() => {
                                                 countAdd(1)
                                             }} type="button"
-                                                    className="btn btn-primary">&nbsp;{counter[1]}&nbsp;</button>
+                                                    className="btn btn-primary">&nbsp;+&nbsp;</button>
                                         </div>
                                         <div className="col-md-4">
                                             <h3>Alhamdulillah</h3>
+                                            <button type="button"
+                                                    className="btn btn-success">&nbsp;{counter[2]}&nbsp;</button>
+                                            &nbsp;
                                             <button onClick={() => {
                                                 countAdd(2)
                                             }} type="button"
-                                                    className="btn btn-primary">&nbsp;{counter[2]}&nbsp;</button>
+                                                    className="btn btn-primary">&nbsp;+&nbsp;</button>
                                         </div>
                                         <div className="col-md-4 mb-3">
                                             <h3>Allahu Akbar</h3>
+                                            <button type="button"
+                                                    className="btn btn-success">&nbsp;{counter[3]}&nbsp;</button>
+                                            &nbsp;
                                             <button onClick={() => {
                                                 countAdd(3)
                                             }} type="button"
-                                                    className="btn btn-primary">&nbsp;{counter[3]}&nbsp;</button>
+                                                    className="btn btn-primary">&nbsp;+&nbsp;</button>
+                                        </div>
+                                        <div className="col-md-4 mb-3">
+                                            <h3>Allahumma sholli ‘ala sayyidina Muhammadin</h3>
+                                            <button type="button"
+                                                    className="btn btn-success">&nbsp;{counter[4]}&nbsp;</button>
+                                            &nbsp;
+                                            <button onClick={() => {
+                                                countAdd(4)
+                                            }} type="button"
+                                                    className="btn btn-primary">&nbsp;+&nbsp;</button>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <h3>Ayat Kursi</h3>
+                                    <p><em>اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ
+                                        وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي
+                                        يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا
+                                        خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ
+                                        كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ
+                                        الْعَلِيُّ الْعَظِيمُ</em></p>
                                 </div>
                                 <div className="col-md-6">
                                     <h3>Al Ikhlas</h3>
@@ -130,15 +159,6 @@ export default function Index() {
                                     }}></em>
                                     <p></p>
                                 </div>
-                                <div className="col-md-6">
-                                    <h3>Ayat Kursi</h3>
-                                    <p><em>اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ
-                                        وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي
-                                        يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا
-                                        خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ
-                                        كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ
-                                        الْعَلِيُّ الْعَظِيمُ</em></p>
-                                </div>
                                 <div className="col-md-12">
                                     <h3>Bacaan Latin (Tulisan Ayat Kursi Latin)</h3>
                                     <p><em>“Allahu la ilaha illa huw, al-hayyul-qayyum, la ta khuzuhu sinatuw wa la na
@@ -146,6 +166,21 @@ export default function Index() {
                                         ‘iznih, ya’lamu ma baina aidihim wa ma khalfahum, wa la yuhituna bisyai’ im min
                                         ilmihi illa bima sya, wasi’a kursiyyuhus-samawati wal-ard, wa la ya’uduhu
                                         hifzuhuma, wa huwal-aliyyul-azim.”</em></p>
+                                </div>
+                                <div className="col-md-12 mb-2">
+                                    <h3>Doa iftitah</h3>
+                                    <p><em>“Alloohu akbar kabiirow wal hamdu lillaahi katsiiroo wasubhaanalloohi bukrotaw wa-ashiilaa
+                                        Innii wajjahtu wajhiya lilladzii fathoros samaawaati wal ardlo haniifaa wamaa ana minal musyrikiin. Inna sholaatii wa nusukii wamahyaa wa mamaatii lillaahi robbil ‘aalamiin.
+                                        Laa syariikalahu wa bidzaalika umirtu wa ana awwalul muslimiin.”</em></p>
+                                </div>
+                                <div className="col-md-12 mb-2">
+                                    <h3>Shalawat Nariyah</h3>
+                                    <p><em>“اللَّهُمَّ صَلِّ صَلاَةً كَامِلَةً وَسَلِّمْ سَلاَمًا تَامًّا عَلىَ سَيِّدِنَا مُحَمَّدٍ الَّذِيْ تُنْحَلُ بِهَ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَوَاتِيْمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيْمِ وَعَلىَ آلِهِ وَصَحْبِهِ عَدَدَ كُلِّ مَعْلُوْمٍ لَكَ.”</em></p>
+                                </div>
+                                <div className="col-md-12 mb-2">
+                                    <h3>Doa Move on dari sakit hati</h3>
+                                    <p><em>“Allahuma ajirni fi mushibati wa akhlif li khairan minha” <br></br>
+                                        (Ya Allah berilah aku pahala dalam musibah ini dan gantilah bagiku dengan sesuatu yang lebih baik daripadanya)</em></p>
                                 </div>
                                 <div className="col-md-12">
                                     <h2>Jadwal Sholat</h2>
