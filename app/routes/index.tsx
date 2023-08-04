@@ -4,15 +4,29 @@ import {useState} from "react";
 
 async function getDataNew() {
     const momentNow = moment();
-    const jadwalSholat = await fetch(process.env.URL_API_MYQURAN + "/v1/sholat/jadwal/1301/" + momentNow.format('YYYY/MM/DD'));
-    const alIkhlas = await fetch(process.env.URL_API_BANGHASAN + "/quran/format/json/surat/112/ayat/1-1000");
-    const alFalaq = await fetch(process.env.URL_API_BANGHASAN + "/quran/format/json/surat/113/ayat/1-1000");
-    const anNashr = await fetch(process.env.URL_API_BANGHASAN + "/quran/format/json/surat/110/ayat/1-1000");
+    const [
+        jadwalSholatResponse,
+        // alIkhlasResponse,
+        alFalaqResponse,
+        anNashrResponse,
+        atTiinResponse,
+        anNabaResponse,
+    ] = await Promise.all([
+        fetch(process.env.URL_API_MYQURAN + '/v1/sholat/jadwal/1301/' + momentNow.format('YYYY/MM/DD')),
+        // fetch(process.env.URL_API_BANGHASAN + '/quran/format/json/surat/112/ayat/1-1000'),
+        fetch(process.env.URL_API_BANGHASAN + '/quran/format/json/surat/113/ayat/1-1000'),
+        fetch(process.env.URL_API_BANGHASAN + '/quran/format/json/surat/110/ayat/1-1000'),
+        fetch(process.env.URL_API_BANGHASAN + '/quran/format/json/surat/95/ayat/1-1000'),
+        fetch(process.env.URL_API_BANGHASAN + '/quran/format/json/surat/78/ayat/1-1000'),
+    ]);
+
     return {
-        'jadwal-sholat': await jadwalSholat.json(),
-        'alIkhlas': await alIkhlas.json(),
-        'alFalaq': await alFalaq.json(),
-        'anNashr': await anNashr.json(),
+        'jadwal-sholat': await jadwalSholatResponse.json(),
+        // 'alIkhlas': await alIkhlasResponse.json(),
+        'alFalaq': await alFalaqResponse.json(),
+        'anNashr': await anNashrResponse.json(),
+        'atTiin': await atTiinResponse.json(),
+        'anNaba': await anNabaResponse.json(),
     }
 }
 
@@ -25,9 +39,11 @@ export default function Index() {
     const jadwalHead = result['jadwal-sholat']['data']['jadwal'];
     delete jadwalHead["tanggal"];
     delete jadwalHead["date"];
-    const alIkhlas = result['alIkhlas']['ayat']['data']['idt'];
+    // const alIkhlas = result['alIkhlas']['ayat']['data']['idt'];
     const alFalaq = result['alFalaq']['ayat']['data']['idt'];
     const anNashr = result['anNashr']['ayat']['data']['idt'];
+    const atTiin = result['atTiin']['ayat']['data']['idt'];
+    const anNaba = result['anNaba']['ayat']['data']['idt'];
     let count = {
         1: 0,
         2: 0,
@@ -132,7 +148,7 @@ export default function Index() {
                                         كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ
                                         الْعَلِيُّ الْعَظِيمُ</em></p>
                                 </div>
-                                <div className="col-md-6">
+                                {/*<div className="col-md-6">
                                     <h3>Al Ikhlas</h3>
                                     <em dangerouslySetInnerHTML={{
                                         __html: alIkhlas.map((val: { [x: string]: any; }, i: any) => {
@@ -140,7 +156,7 @@ export default function Index() {
                                         })
                                     }}></em>
                                     <p></p>
-                                </div>
+                                </div>*/}
                                 <div className="col-md-6">
                                     <h3>Al Falaq</h3>
                                     <em dangerouslySetInnerHTML={{
@@ -154,6 +170,24 @@ export default function Index() {
                                     <h3>An Nashr</h3>
                                     <em dangerouslySetInnerHTML={{
                                         __html: anNashr.map((val: { [x: string]: any; }, i: any) => {
+                                            return (val['teks'])
+                                        })
+                                    }}></em>
+                                    <p></p>
+                                </div>
+                                <div className="col-md-6">
+                                    <h3>At Tiin</h3>
+                                    <em dangerouslySetInnerHTML={{
+                                        __html: atTiin.map((val: { [x: string]: any; }, i: any) => {
+                                            return (val['teks'])
+                                        })
+                                    }}></em>
+                                    <p></p>
+                                </div>
+                                <div className="col-md-6">
+                                    <h3>An Naba</h3>
+                                    <em dangerouslySetInnerHTML={{
+                                        __html: anNaba.map((val: { [x: string]: any; }, i: any) => {
                                             return (val['teks'])
                                         })
                                     }}></em>
@@ -177,11 +211,11 @@ export default function Index() {
                                     <h3>Shalawat Nariyah</h3>
                                     <p><em>“اللَّهُمَّ صَلِّ صَلاَةً كَامِلَةً وَسَلِّمْ سَلاَمًا تَامًّا عَلىَ سَيِّدِنَا مُحَمَّدٍ الَّذِيْ تُنْحَلُ بِهَ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَوَاتِيْمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيْمِ وَعَلىَ آلِهِ وَصَحْبِهِ عَدَدَ كُلِّ مَعْلُوْمٍ لَكَ.”</em></p>
                                 </div>
-                                <div className="col-md-12 mb-2">
+                                {/*<div className="col-md-12 mb-2">
                                     <h3>Doa Move on dari sakit hati</h3>
                                     <p><em>“Allahuma ajirni fi mushibati wa akhlif li khairan minha” <br></br>
                                         (Ya Allah berilah aku pahala dalam musibah ini dan gantilah bagiku dengan sesuatu yang lebih baik daripadanya)</em></p>
-                                </div>
+                                </div>*/}
                                 <div className="col-md-12">
                                     <h2>Jadwal Sholat</h2>
                                     <table className="table">
